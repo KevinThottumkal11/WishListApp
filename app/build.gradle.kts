@@ -65,9 +65,11 @@ dependencies {
     // Jetpack Compose Integration
     implementation("androidx.navigation:navigation-compose:$nav_version")
 
-    implementation("amdroidx.compose.ui:ui:$compose_version")
-    implementation("amdroidx.compose.material:material:$compose_version")
-    implementation("amdroidx.compose.ui:ui-tooling-preview:$compose_version")
+//    implementation("amdroidx.compose.ui:ui:$compose_version")
+//    implementation("amdroidx.compose.material:material:$compose_version")
+//    implementation("amdroidx.compose.ui:ui-tooling-preview:$compose_version")
+    implementation("androidx.compose.ui:ui:1.6.7")
+    implementation("androidx.compose.material:material:1.6.7")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
