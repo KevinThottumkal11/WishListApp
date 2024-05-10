@@ -50,7 +50,7 @@ fun HomeView() {
                 items(DummyWish.wishList){
                     wish -> WishItem(wish = wish) {
 
-                }
+                    }
                 }
         }
     }
