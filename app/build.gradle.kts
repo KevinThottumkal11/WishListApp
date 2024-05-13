@@ -60,6 +60,8 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:$room_version")
 
     // To use Kotlin annotation processing tool (kapt)
+    implementation ("androidx.room:room-ktx:2.2.1")
+//    kapt "androidx.room:room-compiler:2.2.1"
     kapt("androidx.room:room-compiler:$room_version")
 
     // Jetpack Compose Integration
