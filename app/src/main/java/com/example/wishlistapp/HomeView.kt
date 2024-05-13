@@ -13,10 +13,15 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CardElevation
+import androidx.compose.material3.DismissDirection
+import androidx.compose.material3.DismissValue
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SwipeToDismiss
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberDismissState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
@@ -28,6 +33,7 @@ import androidx.navigation.NavController
 import com.example.wishlistapp.data.DummyWish
 import com.example.wishlistapp.data.Wish
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeView(
     navController: NavController,
@@ -56,12 +62,29 @@ fun HomeView(
         LazyColumn(modifier = Modifier
             .fillMaxSize()
             .padding(it)){
-                items(wishList.value){
-                    wish -> WishItem(wish = wish) {
-                        val id = wish.id
-                        navController.navigate(Screen.AddScreen.route + "/$id") // Adding id argument for editing
+                items(wishList.value, key = {wish -> wish.id}){// key - for removing background after swipe to delete
+                    wish ->
 
-                    }
+                    val dismissState = rememberDismissState(
+                        confirmValueChange = {
+                            if(it == DismissValue.DismissedToEnd || it == DismissValue.DismissedToStart){
+                                viewModel.deleteWish(wish)
+                            }
+                            true
+                        }
+                    )
+
+                    SwipeToDismiss(
+                        state = dismissState,
+                        background = {},
+                        directions = setOf(DismissDirection.StartToEnd, DismissDirection.EndToStart),
+                        dismissContent = {
+                            WishItem(wish = wish) {
+                                val id = wish.id
+                                navController.navigate(Screen.AddScreen.route + "/$id")
+                            }
+                        }
+                    )
                 }
         }
     }
