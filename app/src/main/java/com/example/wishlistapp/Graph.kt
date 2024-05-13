@@ -8,7 +8,7 @@ import com.example.wishlistapp.data.WishRepository
 object Graph {
     lateinit var database: WishDatabase
 
-    val wishRepository by lazy {    // lazy - initialize it when only needed
+    val wishRepository by lazy {    // lazy - initialize it when only needed (when for the first time wishRepository is accessed)
         WishRepository(wishDao = database.wishDao())
     }
 
