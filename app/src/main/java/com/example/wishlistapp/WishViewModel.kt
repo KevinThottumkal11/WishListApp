@@ -25,6 +25,12 @@ class WishViewModel(
         wishDescriptionState = newString
     }
 
+    lateinit var getWishById: Wish
+
+    fun getAWishById(id:Long):Flow<Wish> {
+        return wishRepository.getAWishById(id)
+    }
+
     //lateinit - to initialize before its called
     lateinit var getAllWishes: Flow<List<Wish>>
 
@@ -41,16 +47,16 @@ class WishViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             wishRepository.addWish(wish = wish)
         }
-        fun updateWish(wish: Wish) {
-            viewModelScope.launch(Dispatchers.IO) {
-                wishRepository.updateAWish(wish = wish)
-            }
+    }
+    fun updateWish(wish: Wish) {
+        viewModelScope.launch(Dispatchers.IO) {
+            wishRepository.updateAWish(wish = wish)
         }
+    }
 
-        fun deleteWish(wish: Wish) {
-            viewModelScope.launch(Dispatchers.IO) {
-                wishRepository.deleteAWish(wish = wish)
-            }
+    fun deleteWish(wish: Wish) {
+        viewModelScope.launch(Dispatchers.IO) {
+            wishRepository.deleteAWish(wish = wish)
         }
     }
 }
